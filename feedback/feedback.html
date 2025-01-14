@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" href="feedback.css">
+</head>
+<body>
+    
+    <!-- Navigation Bar -->
+    <nav>
+        <img src="../img/logo.jpeg" alt="Logo">
+        <a href="../index.html">Home</a>
+    </nav>
+
+    <!-- Feedback Form Section -->
+    <div class="feedback-container">
+        <h1>We Value Your Feedback!</h1>
+        <form id="feedbackForm">
+            <div class="input-group">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                <div class="error" id="nameError"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <div class="error" id="emailError"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="feedback">Your Feedback:</label>
+                <textarea id="feedback" name="feedback" placeholder="Enter your feedback" required></textarea>
+                <div class="error" id="feedbackError"></div>
+            </div>
+
+            <!-- Rating Section -->
+            <div class="input-group">
+                <label for="rating">Rating:</label>
+                <div class="rating">
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Feedback</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let isValid = true;
+
+            // Reset previous errors
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('feedbackError').textContent = '';
+
+            // Validation
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const feedback = document.getElementById('feedback').value.trim();
+            const rating = document.querySelector('input[name="rating"]:checked');
+
+            if (name === '') {
+                isValid = false;
+                document.getElementById('nameError').textContent = 'Name is required.';
+            }
+
+            if (email === '' || !/\S+@\S+\.\S+/.test(email)) {
+                isValid = false;
+                document.getElementById('emailError').textContent = 'Please enter a valid email.';
+            }
+
+            if (feedback === '') {
+                isValid = false;
+                document.getElementById('feedbackError').textContent = 'Feedback is required.';
+            }
+
+            if (!rating) {
+                isValid = false;
+                alert('Please provide a rating.');
+            }
+
+            if (isValid) {
+                alert('Thank you for your feedback!');
+                document.getElementById('feedbackForm').reset();
+            }
+        });
+    </script>
+
+</body>
+</html>
